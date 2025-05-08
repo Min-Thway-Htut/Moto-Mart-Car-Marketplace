@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>Home</title>
+    </head>
+    <body>
+        <h1>Hello, {{first_name}}</h1>
+        <p>You are now logged in!</p>
+
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    </body>
+</html>
