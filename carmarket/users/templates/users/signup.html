@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,12 +13,32 @@
                 <div class="col-md-8 col-lg-6 col-xl-5 ">
                     <div class="card shadow-lg rounded-4">
                         <div class="card-body p-5">
-                        <h2 class="text-center mb-4">Sign Up</h2>
+                            <img src="{% static 'users/brand-logo.png' %}" class="img-rounded mb-4 d-block mx-auto" style="width:120px; height:90px;  object-fit:cover;"alt="MotoMart Logo">
+                        <h4 class="text-center mb-4">Sign Up</h4>
         <form method="POST">
             {% csrf_token %}
 
             <div class="mb-3">
-            {{ form.as_p }}
+                <label for="id_username" class="form-label">Username</label>
+            {{ form.username }}
+            <div class="form-text">
+                {{ form.username.help_text}}
+            </div>
+            {% if form.username.errors %}
+            <div class="text-danger">
+              {{ form.username.errors }}
+            </div>
+            {% endif %}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_password2" class="form-label">Confirm Password</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                <div class="text-danger">
+                       {{ form.password2.errors }}
+                </div>
+                {% endif %}
             </div>
 
             <div class="d-grid mt-3">
