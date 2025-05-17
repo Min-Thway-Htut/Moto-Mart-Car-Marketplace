@@ -41,3 +41,7 @@ def home(request):
         cars = cars.order_by('-price')
 
     return render(request, 'users/home.html', {'form': form, 'cars': cars})
+
+
+def about(request):
+    return render(request, 'users/about.html')
