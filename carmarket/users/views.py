@@ -20,6 +20,7 @@ def signup(request):
 @login_required
 def home(request):
     query = request.GET.get('search', '')
+    sort_order = request.GET.get('sort', '')
 
     if request.method == 'POST':
         form = CarForm(request.POST, request.FILES)
@@ -29,9 +30,14 @@ def home(request):
     else:
         form = CarForm()
 
+    cars = Car.objects.all()
+
     if query:
         cars = Car.objects.filter(title__icontains=query)
-    else:
-        cars = Car.objects.all()
+
+    if sort_order == 'price_asc':
+        cars = cars.order_by('price')
+    elif sort_order == 'price_desc':
+        cars = cars.order_by('-price')
 
     return render(request, 'users/home.html', {'form': form, 'cars': cars})

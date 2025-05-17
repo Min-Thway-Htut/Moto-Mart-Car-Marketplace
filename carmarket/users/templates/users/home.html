@@ -61,6 +61,13 @@
               <div class="col-md-4 mt-5">
                  <form class="d-flex" action="#">
                   <input type="text" placeholder="Search..." name="search" class="form-control me-2">
+                  
+                  <select name="sort" class="form-select me-2">
+                    <option value="">Sort By</option>
+                    <option value="price_asc" {% if request.GET.sort == "price_asc" %}selected{% endif %}>Price: Low to High</option>
+                    <option value="price_desc"  {% if request.GET.sort == "price_desc" %}selected{% endif %} >Price: High to Low</option>
+                  </select>
+                  
                   <button type="submit" class="btn btn-dark">Search</button>
                  </form>
               </div>
