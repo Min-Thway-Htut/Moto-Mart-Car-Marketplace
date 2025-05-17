@@ -35,7 +35,7 @@
                             <a class="nav-link" href="#">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
+                            <a class="nav-link" href="#">Profile</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
@@ -51,22 +51,27 @@
             </div>
         </nav>
 
-          <div class="container-fluid mt-0 bg-light" style="width: 100%; padding: 0;">
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="{% static 'users/brand-logo.png' %}" class="img-rounded mt-3 mb-4 d-block mx-auto" style="width:120px; height:90px;  object-fit:cover;"alt="MotoMart Logo">
-                </div>
-                <div class="col-md-4 mt-5">
-                   <form class="d-flex" action="#">
-                    <input type="text" placeholder="Search..." name="search" class="form-control me-2">
-                    <button type="submit" class="btn btn-dark">Search</button>
-                   </form>
-                </div>
-                <div class="col-md-4 mt-5">
-                    <button class="btn btn-secondary" onclick="toggleForm()">Sell My Car</button>
-                </div>
-            </div>
-          </div> 
+        <div class="container-fluid mt-0 p-3 bg-light" style="width: 100%; padding: 0;">
+          <div class="row">
+
+              <div class="col-md-4">
+                  <img src="{% static 'users/brand-logo.png' %}" class="img-rounded mt-3 mb-4 d-block mx-auto" style="width:120px; height:90px;  object-fit:cover;"alt="MotoMart Logo">
+              </div>
+
+              <div class="col-md-4 mt-5">
+                 <form class="d-flex" action="#">
+                  <input type="text" placeholder="Search..." name="search" class="form-control me-2">
+                  <button type="submit" class="btn btn-dark">Search</button>
+                 </form>
+              </div>
+
+              <div class="col-md-4 mt-5 mb-5">
+                  <button class="btn btn-secondary" onclick="toggleForm()">Sell My Car</button>
+              </div>
+
+          </div>
+        </div> 
+
 
        
           <div id="uploadSection" style="display: none;">

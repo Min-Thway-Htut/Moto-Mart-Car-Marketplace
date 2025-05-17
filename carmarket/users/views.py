@@ -19,6 +19,8 @@ def signup(request):
 
 @login_required
 def home(request):
+    query = request.GET.get('search', '')
+
     if request.method == 'POST':
         form = CarForm(request.POST, request.FILES)
         if form.is_valid():
@@ -27,5 +29,9 @@ def home(request):
     else:
         form = CarForm()
 
-    cars = Car.objects.all()
+    if query:
+        cars = Car.objects.filter(title__icontains=query)
+    else:
+        cars = Car.objects.all()
+
     return render(request, 'users/home.html', {'form': form, 'cars': cars})
