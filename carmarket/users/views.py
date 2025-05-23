@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from listings.forms import CarForm
 from listings.models import Car
+import random
 
 def signup(request):
     if request.method == 'POST':
@@ -45,3 +46,15 @@ def home(request):
 
 def about(request):
     return render(request, 'users/about.html')
+
+def fandq(request):
+    faqs = [
+        {"question": "How do I list my car for sale?", "answer": "You can list your car by creating an account and clicking on 'Sell a Car."},
+        {"question": "Is there a listing fee?", "answer": "No, listing your car is completely free. "},
+        {"question": "Can I contact the seller directly?", "answer": "Yes, each listing includes contact information."},
+        {"question": "Are the cars inspected?", "answer": "We recommend inspection, but it’s up to buyers to verify condition."},
+        {"question": "Can I edit my listing?", "answer": "Yes, just go to 'My Listings' in your dashboard."},
+        {"question": "How long will my car listing remain active?", "answer": "Listings stay active for 30 days by default. You can renew them from your dashboard before they expire. "},
+    ]
+    random.shuffle(faqs)
+    return render(request, 'users/fandq.html', {'faqs': faqs})

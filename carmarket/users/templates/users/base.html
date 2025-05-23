@@ -22,14 +22,29 @@
     color: #ffffff;
   }
 
-  .dark-mode .navbar,
+  .dark-mode .navbar {
+    background-color: #121212 !important;
+  }
+
   .dark-mode footer {
-    background-color: #1f1f1f !important;
+    background-color: white !important;;
   }
 
   .dark-mode .card {
     background-color: #2a2a2a;
     color: #ffffff;
+  }
+  .dark-mode p{
+    color: #ffffff !important;
+  }
+  .dark-mode h3{
+    color: #ffffff !important;
+  }
+  .dark-mode h5{
+    color: #ffffff !important;
+  }
+  .dark-mode li{
+    color: #ffffff !important;
   }
 
   .dark-mode .form-control,
@@ -53,10 +68,16 @@
   }
 
   .dark-mode .bg-light {
-    background-color: #1f1f1f !important;
+    background-color: #121212 !important;
   }
 
   .dark-mode .text-white {
+    color: #ffffff !important;
+  }
+  .dark-mode a {
+    color: #ffffff !important;
+  }
+  .dark-mode small {
     color: #ffffff !important;
   }
     </style>
@@ -64,9 +85,9 @@
 
 
     <body class="light-mode">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand fw-bold" href="#">MotoMart</a>
+                <a class="navbar-brand fw-bold" href="#" style="color: #121212">MotoMart</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -75,22 +96,22 @@
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                            <a class="nav-link active" aria-current="page" href="{% url 'home' %}" style="color: #121212">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">About</a>
+                            <a class="nav-link" href="{% url 'about' %}"  style="color: #121212">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Profile</a>
+                            <a class="nav-link" href="{% url 'fandq' %}"  style="color: #121212">F&Qs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="#"  style="color: #121212">Contact</a>
                         </li>
                     </ul>
 
                     <form method="POST" action="{% url 'logout' %}" class="d-flex align-items-center my-auto">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-light">Logout</button>
+                        <button type="submit" class="btn bg-dark" style="color: #fff">Logout</button>
                     </form>
 
                     <div class="form-check form-switch text-white m-3">
@@ -110,9 +131,35 @@
           {% block content %}
           {% endblock %}
 
-          <footer class="bg-dark text-white mt-5">
-            <div class="container py-4">
+          <footer class="bg-light text-white mt-5">
+
+            <div class="container mt-5">
               <div class="row">
+                <div class="col-md-6">
+                  <div class="d-flex justify-content-center  align-items-center" style="height: 300px;">
+                    <h3 style="color: #121212">About Us</h3></h5>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-4 text-dark rounded">
+                    <p><strong>MotoMart</strong> is a web application on which you can find or sell cars with ease.
+                      Whether you're looking to sell your vehicle or browse a wide range of listings, MotoMart provides a smooth and intuitive experience for everyone.
+      
+                      With MotoMart, users can:
+                      <ul>
+                        <li>🔍 Easily browse available cars with detailed listings</li>
+                        <li>🚘 Upload their own car for sale in just a few clicks</li>
+                        <li> 👤 Create an account to manage their listings</li>
+                        <li>📷 Add images and important details like price, model, year, and more</li>                  
+                      </ul>
+                     </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+            <div class="container py-4 border-top border-secondary">
+              <div class="row text-dark">
           
                 <!-- About -->
                 <div class="col-md-4 mb-3">
@@ -124,14 +171,14 @@
                 <div class="col-md-4 mb-3">
                   <h5>Quick Links</h5>
                   <ul class="list-unstyled">
-                    <li><a href="{% url 'home' %}" class="text-white text-decoration-none">Home</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Sell a Car</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                    <li><a href="{% url 'home' %}" class="text-dark text-decoration-none">Home</a></li>
+                    <li><a href="#" class="text-dark text-decoration-none">Sell a Car</a></li>
+                    <li><a href="#" class="text-dark text-decoration-none">Contact</a></li>
                   </ul>
                 </div>
           
                 <!-- Contact Info -->
-                <div class="col-md-4 mb-3">
+                <div class="col-md-4 mb-3 text-dark">
                   <h5>Contact Us</h5>
                   <p>Email: support@motomart.com</p>
                   <p>Phone: +123 456 7890</p>
@@ -140,7 +187,7 @@
               </div>
           
               <!-- Bottom line -->
-              <div class="text-center pt-3 border-top border-secondary">
+              <div class="text-center pt-3 border-top border-secondary text-dark">
                 <small>&copy; 2025 MotoMart. All rights reserved.</small>
               </div>
             </div>
