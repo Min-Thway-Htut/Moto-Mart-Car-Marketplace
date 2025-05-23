@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.contrib import messages
+from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -58,3 +61,24 @@ def fandq(request):
     ]
     random.shuffle(faqs)
     return render(request, 'users/fandq.html', {'faqs': faqs})
+
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+
+        full_message = f"From: {name} <{email}>\n\n{message}"
+
+        send_mail(
+            subject,
+            full_message,
+            settings.DEFAULT_FROM_EMAIL,
+            ['minthwayhtut568@gmail.com'],
+            fail_silently=False,
+        )
+        messages.success(request, 'Your message has been sent successfully!')
+        return redirect('contact')
+
+    return render(request, 'users/contact.html')
