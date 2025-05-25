@@ -1,6 +1,7 @@
 {% load static %}
 {% load widget_tweaks %}
 
+<!DOCTYPE html>
 <html>
     <head>
         <title>Home</title>
@@ -11,8 +12,78 @@
   <link rel="icon" type="image/png" href="{% static 'users/favicon.png' %}">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">      
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body.light-mode {
+    background-color: #f8f9fa;
+    color: #212529;
+  }
+
+  body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+
+  .dark-mode .navbar {
+    background-color: #121212 !important;
+  }
+
+  .dark-mode footer {
+    background-color: white !important;;
+  }
+
+  .dark-mode .card {
+    background-color: #2a2a2a;
+    color: #ffffff;
+  }
+  .dark-mode p{
+    color: #ffffff !important;
+  }
+  .dark-mode h3{
+    color: #ffffff !important;
+  }
+  .dark-mode h5{
+    color: #ffffff !important;
+  }
+  .dark-mode li{
+    color: #ffffff !important;
+  }
+
+  .dark-mode .form-control,
+  .dark-mode .form-select {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border-color: #444;
+  }
+
+  .dark-mode .form-control::placeholder {
+    color: #ccc;
+  }
+
+  .dark-mode .btn {
+    border-color: #555;
+  }
+
+  .dark-mode .btn-outline-light {
+    color: #ffffff;
+    border-color: #ffffff;
+  }
+
+  .dark-mode .bg-light {
+    background-color: #121212 !important;
+  }
+
+  .dark-mode .text-white {
+    color: #ffffff !important;
+  }
+  .dark-mode a {
+    color: #ffffff !important;
+  }
+  .dark-mode small {
+    color: #ffffff !important;
+  }
+  </style>
       </head>
 
 
@@ -63,8 +134,7 @@
           {% block content %}
           {% endblock %}
 
-          <footer class="bg-light text-white mt-5">
-
+           <footer class="bg-light text-white mt-5 border-top border-secondary" style="margin: 40px;">
             <div class="container mt-5">
               <div class="row">
                 <div class="col-md-6">
@@ -126,7 +196,7 @@
           </footer>
           
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      
         <script src="{% static 'js/car_form_toggle.js' %}"></script>
         <script>
           // Load saved mode from localStorage
