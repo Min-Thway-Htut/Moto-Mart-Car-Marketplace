@@ -29,7 +29,9 @@ def home(request):
     if request.method == 'POST':
         form = CarForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            car = form.save(commit=False)
+            car.owner = request.user
+            car.save()
             return redirect('home')
     else:
         form = CarForm()
@@ -46,9 +48,19 @@ def home(request):
 
     return render(request, 'users/home.html', {'form': form, 'cars': cars})
 
-
+@login_required
 def about(request):
-    return render(request, 'users/about.html')
+    if request.method == 'POST':
+        form = CarForm(request.POST, request.FILES)
+        if form.is_valid():
+            car = form.save(commit=False)
+            car.owner = request.user
+            car.save()
+    else:
+        form = CarForm()
+
+    user_cars = Car.objects.filter(owner=request.user)
+    return render(request, 'users/about.html', {'form': form, 'cars': user_cars})
 
 def fandq(request):
     faqs = [

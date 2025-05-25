@@ -1,7 +1,48 @@
 {% extends 'users/base.html' %}
+{% load static %}  
 
 {% block content %}
+<style>
+    .car-img {
+        height: 200px;
+        width: 100%;
+        object-fit: cover; /* Ensures the image fills the box without distortion */
+        border-top-left-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem;
+    }
+</style>
+
 <div class="container mt-5">
-    <h1>Hello, {{user.username}}</h1>
-</div>
+    <h1>Hello, {{ user.username }}</h1>
+
+    <h2 class="mt-4">Your Uploaded Cars</h2>
+
+    {% if cars %}
+        <div class="mt-4">
+            {% for car in cars %}
+                <div class="card mb-4">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            {% if car.image %}
+                                <img src="{{ car.image.url }}" class="car-img" alt="{{ car.title }}">
+                            {% else %}
+                                <img src="{% static 'default-car.jpg' %}" class="car-img" alt="No image">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ car.title }}</h5>
+                                <p class="card-text">{{ car.description|truncatechars:150 }}</p>
+                                <p class="card-text"><strong>Price:</strong> ${{ car.price }}</p>
+                                <p class="card-text"><strong>Year:</strong> {{ car.year }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You haven't uploaded any cars yet.</p>
+    {% endif %}
+</div>    
 {% endblock %}
