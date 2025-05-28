@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-%-9vhw_&vr($)(7emoxmy!lx5w&b^1q32m$(6aup22x_d&*8ej
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.onrender.com']
 
 
 # Application definition
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'carmarket.urls'
@@ -109,6 +110,7 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [BASE_DIR / "static", '/var/www/static/']
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
