@@ -2,6 +2,8 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 from .views import home
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
         path('', home, name='home'),
@@ -11,5 +13,7 @@ urlpatterns = [
         path('logout/', auth_views.LogoutView.as_view(), name="logout"),
         path('about/', views.about, name='about'),
         path('fandq/', views.fandq, name='fandq'),
-        path('contact/', views.contact, name='contact')
-]
+        path('contact/', views.contact, name='contact'),
+        path('car/<int:car_id>/edit/', views.edit_car, name='edit_car'),
+        path('car/<int:car_id>/delete/', views.delete_car, name='delete_car'),
+] 
