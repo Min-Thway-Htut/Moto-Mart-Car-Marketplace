@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.conf import settings
@@ -61,6 +61,30 @@ def about(request):
 
     user_cars = Car.objects.filter(owner=request.user)
     return render(request, 'users/about.html', {'form': form, 'cars': user_cars})
+
+def edit_car(request, car_id):
+    car = get_object_or_404(Car, id=car_id)
+    if car.owner != request.user:
+        return redirect('home')
+    
+    car.title = request.POST.get('title')
+    car.description = request.POST.get('description')
+    car.price = request.POST.get('price')
+    car.year = request.POST.get('year')
+
+    if request.FILES.get('image'):
+        car.image = request.FILES.get('image')
+
+    car.save()
+    return redirect('home')
+
+def delete_car(request, car_id):
+    car = get_object_or_404(Car, id=car_id)
+    if request.method == 'POST':
+        car.delete()
+        return redirect('home')
+    return render(request, 'users/delete_car.html', {'car': car})
+
 
 def fandq(request):
     faqs = [
