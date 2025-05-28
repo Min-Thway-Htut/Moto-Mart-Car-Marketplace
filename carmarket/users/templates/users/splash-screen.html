@@ -1,0 +1,46 @@
+{% load static %}
+<!-- templates/splash.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome | MotoMart</title>
+    <link rel="icon" type="image/png" href="{% static 'users/favicon.png' %}">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #121212;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    #splash-content {
+      text-align: center;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div id="splash-content">
+    <h1>🚗 Welcome to MotoMart</h1>
+    <p>Loading your experience...</p>
+  </div>
+
+  <script>
+    // Redirect to login page after 3 seconds
+    setTimeout(function () {
+      window.location.href = "{% url 'login' %}";
+    }, 3000);
+  </script>
+</body>
+</html>

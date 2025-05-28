@@ -130,3 +130,7 @@ def contact(request):
         return redirect('contact')
 
     return render(request, 'users/contact.html')
+
+
+def splash_view(request):
+    return render(request, 'users/splash-screen.html')
