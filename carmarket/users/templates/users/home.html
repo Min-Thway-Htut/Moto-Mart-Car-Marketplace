@@ -12,8 +12,9 @@
   <link rel="icon" type="image/png" href="{% static 'users/favicon.png' %}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="{% static 'js/car_form_toggle.js' %}"  DOMContentLoaded></script>
     <style>
-      body.light-mode {
+       body.light-mode {
     background-color: #f8f9fa;
     color: #212529;
   }
@@ -295,10 +296,10 @@
           
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="{% static 'js/car_form_toggle.js' %}"></script>
         <script>
-          // Load saved mode from localStorage
-          document.addEventListener("DOMContentLoaded", function () {
+           console.log("car_form_toggle.js loaded");
+ 
+ document.addEventListener("DOMContentLoaded", function () {
             const darkModeToggle = document.getElementById("darkModeToggle");
             const currentMode = localStorage.getItem("theme");
         
@@ -321,6 +322,5 @@
             });
           });
         </script>
-      
     </body>
 </html>
