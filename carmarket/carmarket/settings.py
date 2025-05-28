@@ -13,7 +13,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'django-insecure-%-9vhw_&vr($)(7emoxmy!lx5w&b^1q32m$(6aup22x_d&*8ej'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.onrender.com']
 
