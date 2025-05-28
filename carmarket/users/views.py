@@ -47,16 +47,6 @@ def home(request):
     elif sort_order == 'price_desc':
         cars = cars.order_by('-price')
 
-    paginator = Paginator(cars, 8)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    context = {
-        'form': form,
-        'page_obj': page_obj,
-        'query': query,
-        'sort_order': sort_order,
-    }
 
     return render(request, 'users/home.html', {'form': form, 'cars': cars})
 
