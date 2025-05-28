@@ -10,12 +10,18 @@
         border-top-left-radius: 0.25rem;
         border-bottom-left-radius: 0.25rem;
     }
+    .dark-mode .modal-body{
+      color: #121212 !important;
+    }
+    .dark-mode .modal-title{
+      color: #121212 !important;
+    }
 </style>
 
 <div class="container mt-5">
-    <h1>Hello, {{ user.username }}</h1>
+    <h1 style="text-align: center;">Hello, {{ user.username }}</h1>
 
-    <h2 class="mt-4">Your Uploaded Cars</h2>
+    <h2 class="mt-4" style="text-align: center;">Your Uploaded Cars</h2>
 
     {% if cars %}
         <div class="mt-4">
@@ -95,7 +101,7 @@
                           <h5 class="modal-title" id="deleteModalLabel{{ car.id }}">Confirm Deletion</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="color: #121212;">
                           Are you sure you want to delete "{{ car.title }}"?
                         </div>
                         <div class="modal-footer">

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.conf import settings
@@ -45,6 +46,17 @@ def home(request):
         cars = cars.order_by('price')
     elif sort_order == 'price_desc':
         cars = cars.order_by('-price')
+
+    paginator = Paginator(cars, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'form': form,
+        'page_obj': page_obj,
+        'query': query,
+        'sort_order': sort_order,
+    }
 
     return render(request, 'users/home.html', {'form': form, 'cars': cars})
 
@@ -118,3 +130,7 @@ def contact(request):
         return redirect('contact')
 
     return render(request, 'users/contact.html')
+
+
+def splash_view(request):
+    return render(request, 'users/splash-screen.html')
