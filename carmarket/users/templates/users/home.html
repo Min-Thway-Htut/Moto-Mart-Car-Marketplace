@@ -194,6 +194,16 @@
                       <label for="{{ form.year.id_for_label }}" class="form-label">Year</label>
                       {{ form.year|add_class:"form-control" }}
                     </div>
+
+                    <div class="mb-3">
+                      <label for="{{ form.phone_number.id_for_label}}" class="form-label">Phone Number</label>
+                      {{ form.phone_number|add_class:"form-control"}}
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="{{ form.email.id_for_label}}" class="form-label">Email</label>
+                      {{ form.email|add_class:"form-control"}}
+                    </div>
               
                     <!-- Image -->
                     <div class="mb-3">
@@ -223,6 +233,9 @@
                         <h5 class="card-title">{{ car.title }}</h5>
                         <p class="card-text text-truncate"><strong>Condition:</strong> {{car.description}}</p>
                         <p class="mb-1"><strong>Price:</strong> ${{car.price}}</p>
+                        <p class="mb1"><strong>Contact Number:</strong> {{car.phone_number}}</p>
+                        <p class="mb-1"><strong>Email:</strong> {{car.email}}</p>
+                        <p class="text-truncate"><strong>Uploaded by:</strong> {{car.owner}}</p>
                         <small class="text-muted">{{car.created_at}}</small>
                     </div>
                 </div>
