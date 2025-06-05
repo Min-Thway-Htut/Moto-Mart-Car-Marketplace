@@ -26,7 +26,9 @@ git clone https://github.com/Min-Thway-Htut/End-to-End-Computer-Science-Project.
 # Initialize the virtual environment
 source env/bin/activate
 # Navigate to the directory
-cd carmarketplace
+cd carmarket
+# Start the project
+python3 manage.py runserver
 
 # Install dependencies
 npm install
