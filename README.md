@@ -22,10 +22,11 @@ MotoMart is a car marketplace on which you can sell your cars just by uploading 
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/your-repo-name.git
-
+git clone https://github.com/Min-Thway-Htut/End-to-End-Computer-Science-Project.git
+# Initialize the virtual environment
+source env/bin/activate
 # Navigate to the directory
-cd your-repo-name
+cd carmarketplace
 
 # Install dependencies
 npm install
