@@ -4,6 +4,7 @@ from . import views
 from .views import home
 from django.conf import settings
 from django.conf.urls.static import static
+from listings import views as listings_views
 
 urlpatterns = [
         path('', home, name='home'),
