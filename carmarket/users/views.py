@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse, HttpResponseForbidden
+from django.views.decorators.http import require_GET
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from django.contrib import messages
@@ -9,6 +11,11 @@ from django.contrib.auth.decorators import login_required
 from listings.forms import CarForm
 from listings.models import Car
 import random
+import traceback
+from django.db import IntegrityError
+import logging
+
+
 
 def signup(request):
     if request.method == 'POST':
@@ -40,15 +47,18 @@ def home(request):
     cars = Car.objects.all()
 
     if query:
-        cars = Car.objects.filter(title__icontains=query)
+        cars = cars.objects.filter(title__icontains=query)
 
     if sort_order == 'price_asc':
         cars = cars.order_by('price')
     elif sort_order == 'price_desc':
         cars = cars.order_by('-price')
 
+    paginator = Paginator(cars, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, 'users/home.html', {'form': form, 'cars': cars})
+    return render(request, 'users/home.html', {'form': form, 'page_obj': page_obj})
 
 @login_required
 def about(request):
@@ -124,3 +134,12 @@ def contact(request):
 
 def splash_view(request):
     return render(request, 'users/splash-screen.html')
+
+def car_list(request):
+    car_list = Car.objects.all().order_by('-id')
+    paginator = Paginator(car_list, 8)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'home.html', {'page_obj': page_obj})
