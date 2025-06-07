@@ -12,6 +12,7 @@ MotoMart is a car marketplace on which you can sell your cars just by uploading 
 - Search by Name
 - Search by Ascending Order
 - Search by Descending Order
+- Pagination
 - Profile Section
 - F&Qs Section
 - Contact Section (users can send messages to the support team directly via email)
