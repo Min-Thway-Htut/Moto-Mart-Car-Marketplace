@@ -31,4 +31,7 @@ source env/bin/activate
 cd carmarket
 
 # Start the project
+# For development
 python3 manage.py runserver
+# For production
+gunicorn carmarket.wsgi:application
