@@ -1,142 +1,130 @@
 {% load static %}
-<!-- templates/splash.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Welcome | MotoMart</title>
-  <link rel="icon" type="image/png" href="{% static 'users/favicon.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'users/favicon.png' %}" />
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
+
     html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+      margin: 0; padding: 0; height: 100%;
       overflow: hidden;
-      font-family: 'Orbitron', sans-serif;
-      color: #ffffff;
+      background: linear-gradient(135deg, #0a0a0a, #121212);
+      font-family: 'Rajdhani', sans-serif;
+      color: #c0d9ff;
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
+      user-select: none;
     }
 
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-
-    #splash-content {
-      text-align: center;
-      z-index: 2;
-      animation: fadeInUp 1.8s ease-out forwards;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 4px #ffffff, 0 0 20px #ffffff;
-      letter-spacing: 2px;
-    }
-
-    #typewriter {
-      font-size: 1.2rem;
-      white-space: nowrap;
+    /* Speed lines background */
+    #speed-lines {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
       overflow: hidden;
-      border-right: 2px solid #ffffff;
-      width: 0;
-      margin: 0 auto;
-      animation: typing 3.5s steps(30, end) forwards, blink 0.75s step-end infinite;
+      z-index: 0;
     }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 25ch; }
-    }
-
-    @keyframes blink {
-      0%, 100% { border-color: transparent; }
-      50% { border-color: #ffffff; }
-    }
-
-    #particles {
+    .line {
       position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: transparent;
-      z-index: 1;
+      width: 2px;
+      height: 30vh;
+      background: linear-gradient(180deg, transparent, #00bfff80, transparent);
+      opacity: 0.15;
+      animation-timing-function: linear;
+      filter: drop-shadow(0 0 4px #00bfff80);
     }
+
+    /* Create multiple speed lines with different speeds and positions */
+    /* We'll generate 20 lines */
   </style>
 </head>
 <body>
-  <canvas id="particles"></canvas>
-  <div id="splash-content">
-    <h1>Welcome to MotoMart</h1>
-    <div id="typewriter">Activating systems. Please wait...</div>
-  </div>
+  <div id="speed-lines" aria-hidden="true"></div>
+
+  <h1 id="title" aria-label="Welcome to MotoMart">MotoMart</h1>
+  <div id="underline"></div>
+  <p id="subtitle">Starting your engine...</p>
 
   <script>
-    // Redirect after 5 seconds
+    // Create speed lines dynamically
+    const speedLines = document.getElementById('speed-lines');
+    const lineCount = 20;
+
+    for(let i = 0; i < lineCount; i++) {
+      const line = document.createElement('div');
+      line.classList.add('line');
+      line.style.left = (Math.random() * 100) + 'vw';
+      line.style.height = (20 + Math.random() * 40) + 'vh';
+      line.style.animationDuration = (2 + Math.random() * 3) + 's';
+      line.style.animationName = 'moveLine';
+      line.style.animationIterationCount = 'infinite';
+      line.style.animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse';
+      speedLines.appendChild(line);
+    }
+
+    // Animate title and subtitle
+    const title = document.getElementById('title');
+    const subtitle = document.getElementById('subtitle');
+    const underline = document.getElementById('underline');
+
+    // Underline styles & animation
+    underline.style.width = '140px';
+    underline.style.height = '5px';
+    underline.style.margin = '10px auto 40px';
+    underline.style.borderRadius = '3px';
+    underline.style.background = 'linear-gradient(90deg, transparent, #00bfff, transparent)';
+    underline.style.filter = 'drop-shadow(0 0 10px #00bfff)';
+    underline.style.animation = 'shine 3s infinite';
+
+    // Style title and subtitle
+    title.style.fontSize = '4rem';
+    title.style.letterSpacing = '0.15em';
+    title.style.fontWeight = '700';
+    title.style.textAlign = 'center';
+    title.style.margin = '0';
+    title.style.padding = '0';
+    title.style.color = 'transparent';
+    title.style.background = 'linear-gradient(90deg, #c0d9ff, #00bfff)';
+    title.style.backgroundClip = 'text';
+    title.style.webkitBackgroundClip = 'text';
+    title.style.textShadow = '0 0 15px rgba(0, 191, 255, 0.8)';
+
+    subtitle.style.fontSize = '1.2rem';
+    subtitle.style.color = '#7fbfff';
+    subtitle.style.textAlign = 'center';
+    subtitle.style.marginTop = '0';
+    subtitle.style.opacity = '0';
+    subtitle.style.animation = 'fadeInText 2.5s ease forwards 1.5s';
+
+    // Redirect after delay
     setTimeout(() => {
       window.location.href = "{% url 'login' %}";
-    }, 5000);
-
-    // Particle effect
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particlesArray = [];
-    const colors = ['#00fff7', '#008f8c', '#00cccc', '#1fffe0'];
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      }
-
-      draw() {
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function initParticles() {
-      for (let i = 0; i < 120; i++) {
-        particlesArray.push(new Particle());
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particlesArray.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
+    }, 4500);
   </script>
+
+  <style>
+    @keyframes moveLine {
+      0% { transform: translateY(-120vh); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(120vh); opacity: 0; }
+    }
+
+    @keyframes shine {
+      0%, 100% { transform: translateX(-150%); opacity: 0; }
+      50% { transform: translateX(150%); opacity: 1; }
+    }
+
+    @keyframes fadeInText {
+      to { opacity: 1; }
+    }
+  </style>
 </body>
 </html>
+
