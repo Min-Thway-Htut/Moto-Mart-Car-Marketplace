@@ -5,42 +5,138 @@
 <head>
   <meta charset="UTF-8">
   <title>Welcome | MotoMart</title>
-    <link rel="icon" type="image/png" href="{% static 'users/favicon.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'users/favicon.png' %}">
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      background: #121212;
-      color: #fff;
+      background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+      overflow: hidden;
+      font-family: 'Orbitron', sans-serif;
+      color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Segoe UI', sans-serif;
     }
+
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
     #splash-content {
       text-align: center;
-      animation: fadeIn 1.5s ease-in-out;
+      z-index: 2;
+      animation: fadeInUp 1.8s ease-out forwards;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 4px #ffffff, 0 0 20px #ffffff;
+      letter-spacing: 2px;
+    }
+
+    #typewriter {
+      font-size: 1.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #ffffff;
+      width: 0;
+      margin: 0 auto;
+      animation: typing 3.5s steps(30, end) forwards, blink 0.75s step-end infinite;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 25ch; }
+    }
+
+    @keyframes blink {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: #ffffff; }
+    }
+
+    #particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: transparent;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
+  <canvas id="particles"></canvas>
   <div id="splash-content">
-    <h1>🚗 Welcome to MotoMart</h1>
-    <p>Loading your experience...</p>
+    <h1>Welcome to MotoMart</h1>
+    <div id="typewriter">Activating systems. Please wait...</div>
   </div>
 
   <script>
-    // Redirect to login page after 3 seconds
-    setTimeout(function () {
+    // Redirect after 5 seconds
+    setTimeout(() => {
       window.location.href = "{% url 'login' %}";
-    }, 3000);
+    }, 5000);
+
+    // Particle effect
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particlesArray = [];
+    const colors = ['#00fff7', '#008f8c', '#00cccc', '#1fffe0'];
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      for (let i = 0; i < 120; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
   </script>
 </body>
 </html>
