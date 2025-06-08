@@ -1,46 +1,130 @@
 {% load static %}
-<!-- templates/splash.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Welcome | MotoMart</title>
-    <link rel="icon" type="image/png" href="{% static 'users/favicon.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'users/favicon.png' %}" />
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: #121212;
-      color: #fff;
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
+
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0a0a0a, #121212);
+      font-family: 'Rajdhani', sans-serif;
+      color: #c0d9ff;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Segoe UI', sans-serif;
+      flex-direction: column;
+      user-select: none;
     }
 
-    #splash-content {
-      text-align: center;
-      animation: fadeIn 1.5s ease-in-out;
+    /* Speed lines background */
+    #speed-lines {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+    .line {
+      position: absolute;
+      width: 2px;
+      height: 30vh;
+      background: linear-gradient(180deg, transparent, #00bfff80, transparent);
+      opacity: 0.15;
+      animation-timing-function: linear;
+      filter: drop-shadow(0 0 4px #00bfff80);
     }
+
+    /* Create multiple speed lines with different speeds and positions */
+    /* We'll generate 20 lines */
   </style>
 </head>
 <body>
-  <div id="splash-content">
-    <h1>🚗 Welcome to MotoMart</h1>
-    <p>Loading your experience...</p>
-  </div>
+  <div id="speed-lines" aria-hidden="true"></div>
+
+  <h1 id="title" aria-label="Welcome to MotoMart">MotoMart</h1>
+  <div id="underline"></div>
+  <p id="subtitle">Starting your engine...</p>
 
   <script>
-    // Redirect to login page after 3 seconds
-    setTimeout(function () {
+    // Create speed lines dynamically
+    const speedLines = document.getElementById('speed-lines');
+    const lineCount = 20;
+
+    for(let i = 0; i < lineCount; i++) {
+      const line = document.createElement('div');
+      line.classList.add('line');
+      line.style.left = (Math.random() * 100) + 'vw';
+      line.style.height = (20 + Math.random() * 40) + 'vh';
+      line.style.animationDuration = (2 + Math.random() * 3) + 's';
+      line.style.animationName = 'moveLine';
+      line.style.animationIterationCount = 'infinite';
+      line.style.animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse';
+      speedLines.appendChild(line);
+    }
+
+    // Animate title and subtitle
+    const title = document.getElementById('title');
+    const subtitle = document.getElementById('subtitle');
+    const underline = document.getElementById('underline');
+
+    // Underline styles & animation
+    underline.style.width = '140px';
+    underline.style.height = '5px';
+    underline.style.margin = '10px auto 40px';
+    underline.style.borderRadius = '3px';
+    underline.style.background = 'linear-gradient(90deg, transparent, #00bfff, transparent)';
+    underline.style.filter = 'drop-shadow(0 0 10px #00bfff)';
+    underline.style.animation = 'shine 3s infinite';
+
+    // Style title and subtitle
+    title.style.fontSize = '4rem';
+    title.style.letterSpacing = '0.15em';
+    title.style.fontWeight = '700';
+    title.style.textAlign = 'center';
+    title.style.margin = '0';
+    title.style.padding = '0';
+    title.style.color = 'transparent';
+    title.style.background = 'linear-gradient(90deg, #c0d9ff, #00bfff)';
+    title.style.backgroundClip = 'text';
+    title.style.webkitBackgroundClip = 'text';
+    title.style.textShadow = '0 0 15px rgba(0, 191, 255, 0.8)';
+
+    subtitle.style.fontSize = '1.2rem';
+    subtitle.style.color = '#7fbfff';
+    subtitle.style.textAlign = 'center';
+    subtitle.style.marginTop = '0';
+    subtitle.style.opacity = '0';
+    subtitle.style.animation = 'fadeInText 2.5s ease forwards 1.5s';
+
+    // Redirect after delay
+    setTimeout(() => {
       window.location.href = "{% url 'login' %}";
-    }, 3000);
+    }, 4500);
   </script>
+
+  <style>
+    @keyframes moveLine {
+      0% { transform: translateY(-120vh); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(120vh); opacity: 0; }
+    }
+
+    @keyframes shine {
+      0%, 100% { transform: translateX(-150%); opacity: 0; }
+      50% { transform: translateX(150%); opacity: 1; }
+    }
+
+    @keyframes fadeInText {
+      to { opacity: 1; }
+    }
+  </style>
 </body>
 </html>
+
