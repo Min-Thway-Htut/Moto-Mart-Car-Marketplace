@@ -37,6 +37,9 @@ source env/bin/activate
 # Navigate to the directory
 cd carmarket
 
+# Install necessary packages
+pip install -r requirements.txt
+
 # Start the project
 
 # For development
