@@ -21,3 +21,10 @@ class Car(models.Model):
 
     def __str__(self):
         return self.title
+    
+class SearchQuery(models.Model):
+    term = models.CharField(max_length=255)
+    count = models.PositiveBigIntegerField(default=1)
+
+    def __str__(self):
+        return self.term

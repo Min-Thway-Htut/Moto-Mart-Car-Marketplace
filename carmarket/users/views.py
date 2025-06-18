@@ -9,13 +9,15 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from listings.forms import CarForm
-from listings.models import Car
+from listings.models import Car, SearchQuery
 import random
 import traceback
 from django.db import IntegrityError
 import logging
+from .models import CarBrandNames
+from faker import Faker
 
-
+fake = Faker()
 
 def signup(request):
     if request.method == 'POST':
@@ -47,7 +49,11 @@ def home(request):
     cars = Car.objects.all()
 
     if query:
-        cars = cars.objects.filter(title__icontains=query)
+        search_obj, created = SearchQuery.objects.get_or_create(term=query)
+        if not created:
+            search_obj.count += 1
+            search_obj.save()
+        cars = cars.filter(title__icontains=query)
 
     if sort_order == 'price_asc':
         cars = cars.order_by('price')
@@ -58,7 +64,11 @@ def home(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'users/home.html', {'form': form, 'page_obj': page_obj})
+    top_searches = SearchQuery.objects.order_by('-count')[:5]
+    return render(request, 'users/home.html', 
+                  {'form': form, 
+                   'page_obj': page_obj,
+                   'top_searches': top_searches})
 
 @login_required
 def about(request):
@@ -143,3 +153,21 @@ def car_list(request):
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'home.html', {'page_obj': page_obj})
+
+def generate_data(request):
+    for i in range(0, 100):
+        CarBrandNames.objects.create(car_brand_names=fake.address())
+    return JsonResponse({'status': 200})
+
+
+def search_car_brand_names(request):
+    car_brand_names = request.GET.get('car_brand_names')
+    payload = []
+    if car_brand_names:
+        fake_address_objs = CarBrandNames.objects.filter(car_brand_names__icontains=car_brand_names)
+    
+        for fake_address_obj in fake_address_objs:
+            payload.append(fake_address_obj.car_brand_names)
+
+    return JsonResponse({'status':200, 'data': payload})
+
