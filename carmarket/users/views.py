@@ -16,18 +16,21 @@ from django.db import IntegrityError
 import logging
 from .models import CarBrandNames
 from faker import Faker
+from .forms import CustomUserCreationForm
 
 fake = Faker()
 
+
+
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect('home')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'users/signup.html', {'form': form})
 
 

@@ -62,7 +62,7 @@
 </style>
 
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Hello, {{ user.username }}</h1>
+    <h1 class="text-center mb-4">Hello, {{user.first_name}} {{user.last_name}} </h1>
 
     <h2 class="text-center mb-4">Your Uploaded Cars</h2>
 
@@ -162,6 +162,10 @@
     {% else %}
         <p class="text-center empty-state">You haven't uploaded any cars yet.</p>
     {% endif %}
+
+    <div>
+        <h2 class="text-center mb-4">Reset Password</h2>
+    </div>
 </div>
 
 <!-- Bootstrap JS -->

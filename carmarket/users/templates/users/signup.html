@@ -22,30 +22,51 @@
     }
   </style>
 <body>
-<section class="vh-100 bg-dark">
+<section class="vh-200 bg-dark">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-8 col-lg-6 col-xl-5">
                 <div class="card shadow-lg rounded-4">
                     <div class="card-body p-5">
-                        <img src="{% static 'users/brand-logo.png' %}" class="img-rounded mb-4 d-block mx-auto" style="width:120px; height:90px; object-fit:cover;" alt="MotoMart Logo">
+                            <img src="{% static 'users/brand-logo.png' %}" class="img-rounded mb-4 d-block mx-auto" style="width:120px; height:90px; object-fit:cover;" alt="MotoMart Logo">
                         <h4 class="text-center mb-4">Sign Up</h4>
 
-                        <form method="POST">
-                            {% csrf_token %}
+                      <!-- templates/users/signup.html -->
+                       <form method="POST">
+                        {% csrf_token %}
 
-                            <div class="mb-3">
-                                <label for="id_username" class="form-label">Username</label>
-                                {{ form.username|add_class:"form-control" }}
-                                {% if form.username.help_text %}
-                                    <div class="form-text">{{ form.username.help_text }}</div>
-                                {% endif %}
-                                {% if form.username.errors %}
-                                    <div class="text-danger">{{ form.username.errors }}</div>
-                                {% endif %}
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">Username</label>
+                            {{ form.username|add_class:"form-control"}}
+                            {% if form.username.help_text %}
+                                <div class="form-text">{{ form.username.help_text}}</div>
+                            {% endif %}
+                            {% if form.username.errors %}
+                            <div class="text-danger">
+                                {{form.username.errors}}
                             </div>
+                            {% endif %}
+                        </div>
 
-                            <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email</label>
+                            {{ form.email|add_class:"form-control"}}
+                            {% if form.email.errors %}
+                            <div class="text-danger">{{form.email.password}}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_first_name" class="form-label">First Name</label>
+                            {{ form.first_name|add_class:"form-control"}}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_last_name" class="form-label">Last Name</label>
+                            {{ form.last_name|add_class:"form-control"}}
+                        </div>
+
+                           <div class="mb-3">
                                 <label for="id_password1" class="form-label">Password</label>
                                 {{ form.password1|add_class:"form-control" }}
                                 {% if form.password1.errors %}
@@ -64,7 +85,8 @@
                             <div class="d-grid mt-3">
                                 <button type="submit" class="btn btn-primary w-100">Sign Up</button>
                             </div>
-                        </form>
+                       </form>
+
 
                         <p class="mt-3">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
                     </div>
