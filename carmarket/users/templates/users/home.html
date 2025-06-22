@@ -6,6 +6,10 @@
         <title>Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
+          <link
+  rel="stylesheet"
+  href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"
+/>
       <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Signika:wght@300..700&display=swap" rel="stylesheet">
@@ -39,6 +43,11 @@
   font-style: normal;
   font-variation-settings:
     "GRAD" 0;
+  }
+
+  .search-bar{
+    margin-right: 30px;
+    width: 900px;
   }
 
   .dark-mode .navbar {
@@ -90,6 +99,10 @@
     background-color: #121212 !important;
   }
 
+  .dark-mode .complete-result{
+    background-color: #121212 !important;
+  }
+
   .dark-mode .text-white {
     color: #ffffff !important;
   }
@@ -99,6 +112,8 @@
   .dark-mode small {
     color: #ffffff !important;
   }
+
+
    .card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -111,6 +126,24 @@
     .text-truncate {
       max-width: 100%;
     }
+
+    .car-logo{
+      background-color: none;
+      width: 300px;
+      margin-left: 50px;
+    }
+    .dark-mode #disabled-previous-button{
+      background-color: gray;
+    }
+    .dark-mode #disabled-number-button{
+      background-color: rgb(0, 0, 101);
+    }
+
+    
+
+   
+
+    
     </style>
       </head>
 
@@ -157,14 +190,19 @@
         <div class="container-fluid mt-0 p-3 bg-light" style="width: 100%; padding: 0;">
           <div class="row">
 
-              <div class="col-md-4">
-                  <img src="{% static 'users/brand-logo.png' %}" class="img-rounded mt-3 mb-4 d-block mx-auto" style="width:120px; height:90px;  object-fit:cover;"alt="MotoMart Logo">
+              <div class="col-md-4 car-logo">
+                  <img src="{% static 'users/brand-logo.png' %}" class="img-rounded mt-3 mb-4 d-block mx-auto" style="width:200px; height:90px;  object-fit:cover;"alt="MotoMart Logo">
               </div>
-
+             
               <div class="col-md-4 mt-5">
                  <form class="d-flex" action="#">
+                    <div id="autocomplete" class="autocomplete search-bar">
                   <input type="text" placeholder="Search..." name="search" class="form-control me-2">
-                  
+                  <ul class="autocomplete-result-list complete-result"></ul>
+                </div>
+                 
+                
+                 
                   <select name="sort" class="form-select me-2">
                     <option value="">Sort By</option>
                     <option value="price_asc" {% if request.GET.sort == "price_asc" %}selected{% endif %}>Price: Low to High</option>
@@ -264,11 +302,7 @@
               <p class="mb-1"><strong>Contact Number:</strong> {{car.phone_number}}</p>
               <p class="mb-1"><strong>Email:</strong> {{car.email}}</p>
               <p class="text-truncate"><strong>Uploaded by:</strong> {{car.owner}}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <a href="#" data-car-id="{{ car.id }}" class="text-dark save-car" title="Save">
-                  <i class="far fa-bookmark"></i>
-                </a>
-              </div>
+            
             </div>
         </div>
       </div>
@@ -283,7 +317,7 @@
         <ul class="pagination">
           {% if page_obj.has_previous %}
           <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; Previous</a>
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" id="disabled-previous-button">&laquo; Previous</a>
           </li>
           {% else %}
           <li class="page-item disabled">
@@ -295,13 +329,13 @@
           {% if page_obj.number == num %}
             <li class="page-item active"><span class="page-link">{{ num }}</span></li>
           {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ num }}" id="disabled-number-button">{{ num }}</a></li>
           {% endif %}
           {% endfor %}
 
           {% if page_obj.has_next %}
           <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next &raquo;</a>
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}" id="disabled-previous-button">Next &raquo;</a>
           </li>
           {% else %}
           <li class="page-item disabled">
@@ -382,6 +416,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script>
+
            console.log("car_form_toggle.js loaded");
  
  document.addEventListener("DOMContentLoaded", function () {
@@ -408,6 +443,26 @@
           });           
 
         AOS.init();
+        </script>
+
+         <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+
+        <script>
+           new Autocomplete('#autocomplete', {
+          search: input => {
+            console.log(input)
+            const url = `/search/?car_brand_names=${input}`
+            return new Promise(resolve => {
+              fetch(url)
+              .then(response => response.json())
+              .then(data =>  {
+                resolve(data.data)
+              })
+            })
+            
+           
+          }
+        })
         </script>
     </body>
 </html> 
