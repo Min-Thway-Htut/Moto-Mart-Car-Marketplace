@@ -16,7 +16,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://end-to-end-computer-science-project.onrender.com",
+    "http://localhost:8000",
+    "http://localhost:8080",
+    "http://localhost:8081",
+]
 # Application definition
 
 INSTALLED_APPS = [
