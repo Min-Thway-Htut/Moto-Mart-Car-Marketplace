@@ -118,7 +118,6 @@ def fandq(request):
         {"question": "Can I contact the seller directly?", "answer": "Yes, each listing includes contact information."},
         {"question": "Are the cars inspected?", "answer": "We recommend inspection, but it’s up to buyers to verify condition."},
         {"question": "Can I edit my listing?", "answer": "Yes, just go to 'My Listings' in your dashboard."},
-        {"question": "How long will my car listing remain active?", "answer": "Listings stay active for 30 days by default. You can renew them from your dashboard before they expire. "},
     ]
     random.shuffle(faqs)
     return render(request, 'users/fandq.html', {'faqs': faqs})
