@@ -8,11 +8,12 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-
+    
 COPY . /code/
 
 RUN python3 manage.py collectstatic --noinput
 
+RUN python3 manage.py migrate --noinput
 EXPOSE 8000
 
 
