@@ -44,6 +44,9 @@ python3 -m venv venv
 # Navigate to the directory
 cd carmarket
 
+# Create a .env file and add environment variables.
+# The contents of .env file can be view in .env.example file.
+
 # Install necessary packages
 pip install -r requirements.txt
 
@@ -72,6 +75,10 @@ source env/bin/activate
 
 cd carmarket
 
+# Create a .env file and add environment variables.
+# The contents of .env file can be view in .env.example file.
+
+# Install necessary packages
 pip install -r requirements.txt
 
 # For development
@@ -80,3 +87,38 @@ python3 manage.py runserver
 # For production
 gunicorn carmarket.wsgi:application --bind 0.0.0.0:8080
 
+```
+
+### Please follow these instructions to run the application using Docker
+
+```bash
+
+# Clone the repository
+
+git clone https://github.com/Min-Thway-Htut/End-to-End-Computer-Science-Project.git
+
+cd End-to-End-Computer-Science-Project
+
+# Create a virtual environment
+
+python3 -m venv venv
+
+# Initialize a virtual environment
+
+source env/bin/activate
+
+cd carmarket
+
+# Create a .env file and add environment variables.
+# The contents of .env file can be view in .env.example file.
+
+# Install necessary packages
+pip install -r requirements.txt
+
+sudo docker-compose up --build -d
+
+sudo docker-compose up -d
+
+```
+
+The application will be running at http://localhost:8000/ .
