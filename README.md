@@ -1,4 +1,4 @@
-# End-to-End-Computer-Science-Project
+mu77# End-to-End-Computer-Science-Project
 
 ## MotoMart Car Marketplace
 
@@ -32,7 +32,8 @@ MotoMart is a car marketplace on which you can sell your cars just by uploading 
 git clone https://github.com/Min-Thway-Htut/End-to-End-Computer-Science-Project.git
 
 # Initialize the virtual environment
-source env/bin/activate
+source env/bin/activate (on Linux)
+.\env\Scripts\Activate.ps1 (on Windows)
 
 # Navigate to the directory
 cd carmarket
