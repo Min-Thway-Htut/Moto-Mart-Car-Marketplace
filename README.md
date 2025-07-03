@@ -29,7 +29,7 @@ MotoMart is a car marketplace on which you can sell your cars just by uploading 
 
 ## Installation
 
-### Follow these instructions if you are on Windows
+### Please follow these instructions to run the application on Windows
 
 ```bash
 # Clone the repository
@@ -58,7 +58,7 @@ python3 manage.py runserver
 
 ```
 
-### Follow these instructions if you are on Linux
+### Please follow these instructions to run the application on Linux
 
 ```bash
 # Clone the repository
