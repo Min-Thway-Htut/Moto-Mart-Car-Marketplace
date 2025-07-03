@@ -35,6 +35,7 @@ MotoMart is a car marketplace on which you can sell your cars just by uploading 
 # Clone the repository
 git clone https://github.com/Min-Thway-Htut/End-to-End-Computer-Science-Project.git
 
+# Navigate to the directory
 cd End-to-End-Computer-Science-Project
 
 # Create a virtual environment
@@ -53,7 +54,6 @@ cd carmarket
 pip install -r requirements.txt
 
 # Start the project
-
 python3 manage.py runserver
 
 ```
@@ -62,19 +62,18 @@ python3 manage.py runserver
 
 ```bash
 # Clone the repository
-
 git clone https://github.com/Min-Thway-Htut/End-to-End-Computer-Science-Project.git
 
+# Navigate to the directory
 cd End-to-End-Computer-Science-Project
 
 # Create a virtual environment
-
 python3 -m venv venv
 
 # Initialize a virtual environment
+source venv/bin/activate
 
-source env/bin/activate
-
+# Navigate to the directory
 cd carmarket
 
 # Create a .env file and add environment variables.
@@ -84,7 +83,7 @@ cd carmarket
 pip install -r requirements.txt
 
 # For development
-python3 manage.py runserver 
+python3 manage.py runserver
 
 # For production
 gunicorn carmarket.wsgi:application --bind 0.0.0.0:8080
@@ -96,19 +95,18 @@ gunicorn carmarket.wsgi:application --bind 0.0.0.0:8080
 ```bash
 
 # Clone the repository
-
 git clone https://github.com/Min-Thway-Htut/End-to-End-Computer-Science-Project.git
 
+# Navigate to the directory
 cd End-to-End-Computer-Science-Project
 
 # Create a virtual environment
-
 python3 -m venv venv
 
 # Initialize a virtual environment
+source venv/bin/activate
 
-source env/bin/activate
-
+# Navigate to the directory
 cd carmarket
 
 # Create a .env file and add environment variables.
@@ -117,8 +115,10 @@ cd carmarket
 # Install necessary packages
 pip install -r requirements.txt
 
+# Build the image and start the containers
 sudo docker-compose up --build -d
 
+# Start the containers (without rebuilding the image)
 sudo docker-compose up -d
 
 ```
