@@ -36,7 +36,7 @@ git clone https://github.com/Min-Thway-Htut/End-to-End-Computer-Science-Project.
 cd End-to-End-Computer-Science-Project
 
 # Create a virtual environment
-python -m venv venv
+python3 -m venv venv
 
 # Initialize the virtual environment
 ./venv/Scripts/activate
@@ -51,4 +51,32 @@ pip install -r requirements.txt
 
 python3 manage.py runserver
 
+```
+
+### Follow these instructions if you are on Linux
+
+```bash
+# Clone the repository
+
+git clone https://github.com/Min-Thway-Htut/End-to-End-Computer-Science-Project.git
+
+cd End-to-End-Computer-Science-Project
+
+# Create a virtual environment
+
+python3 -m venv venv
+
+# Initialize a virtual environment
+
+source env/bin/activate
+
+cd carmarket
+
+pip install -r requirements.txt
+
+# For development
+python3 manage.py runserver 
+
+# For production
+gunicorn carmarket.wsgi:application --bind 0.0.0.0:8080
 
