@@ -25,6 +25,7 @@ MotoMart is a car marketplace on which you can sell your cars just by uploading 
 - Frontend - Django HTML Template, CSS, Bootstrap Framework, and JavaScript
 - Backend - Python Django Framework
 - Database - SQLite
+- Docker - DevOps
 
 ## Installation
 
